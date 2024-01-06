@@ -66,13 +66,12 @@ public class Differ {
     }
 
     private static String makeOutputString(Set<PrefixModel> outputList) {
-        PairUnifier unifier = (k, v) -> k.toString().concat(": ").concat(v.toString());
+
         StringBuilder builder = new StringBuilder("{");
 
         outputList.forEach(model -> {
             builder.append("\n  ");
-            builder.append(model.getPrefix());
-            builder.append(unifier.getString(model.getKey(), model.getValue()));
+            builder.append(model.toString());
         });
 
         builder.append("\n}");

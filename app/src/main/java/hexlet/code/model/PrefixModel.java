@@ -1,5 +1,7 @@
 package hexlet.code.model;
 
+import hexlet.abstracts.PairUnifier;
+
 public class PrefixModel implements Comparable<PrefixModel> {
     private String key;
     private Object value;
@@ -42,5 +44,11 @@ public class PrefixModel implements Comparable<PrefixModel> {
             compareResult = prefix.compareTo(o.getPrefix()) > 0 ? -1 : 1 ;
         }
         return compareResult;
+    }
+
+    @Override
+    public String toString() {
+        PairUnifier unifier = (k, v) -> k.toString().concat(": ").concat(v.toString());
+        return prefix.concat(" ").concat(unifier.getString(key, value));
     }
 }
