@@ -1,7 +1,6 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.abstracts.PairUnifier;
 import hexlet.code.model.PrefixModel;
 
 import java.io.FileNotFoundException;

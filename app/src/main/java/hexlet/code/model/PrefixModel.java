@@ -41,7 +41,7 @@ public class PrefixModel implements Comparable<PrefixModel> {
         }
         int compareResult = key.compareTo(o.getKey());
         if (compareResult == 0) {
-            compareResult = prefix.compareTo(o.getPrefix()) > 0 ? -1 : 1 ;
+            compareResult = prefix.compareTo(o.getPrefix()) > 0 ? -1 : 1;
         }
         return compareResult;
     }
