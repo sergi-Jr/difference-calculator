@@ -35,13 +35,13 @@ jacoco {
 }
 
 jacocoTestReport {
-    dependsOn test
+    //dependsOn test
     reports {
         xml.required = true;
     }
 }
 
 test {
-    finalizedBy jacocoTestReport
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
