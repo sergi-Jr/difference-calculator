@@ -3,4 +3,5 @@
 [![Actions Status](https://github.com/sergi-Jr/java-project-71/actions/workflows/main.yml/badge.svg)](https://github.com/sergi-Jr/java-project-71/actions)
 ### Code coverage
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a2933dcd76ae77b5e157/test_coverage)](https://codeclimate.com/github/sergi-Jr/java-project-71/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a2933dcd76ae77b5e157/maintainability)](https://codeclimate.com/github/sergi-Jr/java-project-71/maintainability)
 ##### [![Static Badge](https://img.shields.io/badge/flatJsonCheck-redg.svg)](https://asciinema.org/a/J4njHTwxsBPkS8z0CeSo3NawX) 
