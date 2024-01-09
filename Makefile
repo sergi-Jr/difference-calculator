@@ -1,2 +1,2 @@
 report:
-  $(MAKE) -C app/ report
+    $(MAKE) -C app/ report
