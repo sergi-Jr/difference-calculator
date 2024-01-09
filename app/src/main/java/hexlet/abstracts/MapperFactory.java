@@ -9,15 +9,12 @@ import hexlet.abstracts.extensions.FileFormatException;
 public final class MapperFactory {
     public static ObjectMapper getMapper(String fileExtension) throws FileFormatException {
         switch (fileExtension) {
-            case "json": {
+            case "json":
                 return new JsonMapper();
-            }
-            case "yaml", "yml": {
+            case "yaml", "yml":
                 return new YAMLMapper().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER);
-            }
-            default: {
+            default:
                 throw new FileFormatException("Unsupported file extension");
-            }
         }
     }
 }
