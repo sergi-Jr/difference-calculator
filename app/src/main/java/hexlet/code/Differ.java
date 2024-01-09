@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.abstracts.extensions.FileFormatException;
 import hexlet.code.model.PrefixModel;
 
 import java.io.FileNotFoundException;
@@ -23,10 +24,10 @@ public class Differ {
     private static String unchangedPrefix = " ";
 
     public static String generate(String originalFilePathString, String comparableFilePathString)
-            throws InvalidPathException, IOException {
-        Map<String, Object> originalMappedJson = getDataFromJson(originalFilePathString);
-        Map<String, Object> comparableMappedJson = getDataFromJson(comparableFilePathString);
-        Set<PrefixModel> dataDifference = getDifference(originalMappedJson, comparableMappedJson);
+            throws InvalidPathException, IOException, FileFormatException {
+        Map<String, Object> originalMappedData = Parser.parse(originalFilePathString);
+        Map<String, Object> comparableMappedData = Parser.parse(comparableFilePathString);
+        Set<PrefixModel> dataDifference = getDifference(originalMappedData, comparableMappedData);
         return makeOutputString(dataDifference);
     }
 
@@ -75,18 +76,5 @@ public class Differ {
 
         builder.append("\n}");
         return builder.toString();
-    }
-
-    private static Map<String, Object> getDataFromJson(String filePathString)
-            throws IOException, InvalidPathException {
-        Path filepath = Paths.get(filePathString).toAbsolutePath().normalize();
-
-        if (!Files.exists(filepath)) {
-            throw new FileNotFoundException("File '" + filePathString + "' does not exist.");
-        }
-
-        byte[] fileBytesArr = Files.readAllBytes(filepath);
-
-        return mapper.readValue(fileBytesArr, Map.class);
     }
 }
