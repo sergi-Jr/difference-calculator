@@ -29,13 +29,8 @@ dependencies {
     annotationProcessor('info.picocli:picocli-codegen:4.7.5')
 }
 
-jacoco {
-    toolVersion = "0.8.9"
-    reportsDirectory = layout.buildDirectory.dir('reports/jacoco')
-}
-
 jacocoTestReport {
-    //dependsOn test
+    dependsOn test
     reports {
         xml.required = true;
     }
