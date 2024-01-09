@@ -41,21 +41,23 @@ public class Differ {
                 if (mapToCompare.containsKey(key)) {
                     Object comparableValue = mapToCompare.get(key);
                     if (originalValue.equals(comparableValue)) {
-                        PrefixedPairData unchangedPrefixedPairData = new PrefixedPairData(key, value, unchangedPrefix);
-                        diffCheckResultSet.add(unchangedPrefixedPairData);
+                        PrefixedPairData unchangedPrefixedData = new PrefixedPairData(key, value, unchangedPrefix);
+                        diffCheckResultSet.add(unchangedPrefixedData);
                     } else {
-                        PrefixedPairData deletionPrefixedPairData = new PrefixedPairData(key, originalValue, deletionPrefix);
-                        diffCheckResultSet.add(deletionPrefixedPairData);
-                        PrefixedPairData insertionPrefixedPairData = new PrefixedPairData(key, comparableValue, insertionPrefix);
-                        diffCheckResultSet.add(insertionPrefixedPairData);
+                        PrefixedPairData deletionPrefixedData =
+                                new PrefixedPairData(key, originalValue, deletionPrefix);
+                        diffCheckResultSet.add(deletionPrefixedData);
+                        PrefixedPairData insertionPrefixedData =
+                                new PrefixedPairData(key, comparableValue, insertionPrefix);
+                        diffCheckResultSet.add(insertionPrefixedData);
                     }
                 } else {
-                    PrefixedPairData deletionPrefixedPairData = new PrefixedPairData(key, originalValue, deletionPrefix);
-                    diffCheckResultSet.add(deletionPrefixedPairData);
+                    PrefixedPairData deletionPrefixedData = new PrefixedPairData(key, originalValue, deletionPrefix);
+                    diffCheckResultSet.add(deletionPrefixedData);
                 }
             } else {
-                PrefixedPairData insertionPrefixedPairData = new PrefixedPairData(key, value, insertionPrefix);
-                diffCheckResultSet.add(insertionPrefixedPairData);
+                PrefixedPairData insertionPrefixedData = new PrefixedPairData(key, value, insertionPrefix);
+                diffCheckResultSet.add(insertionPrefixedData);
             }
         });
         return diffCheckResultSet;

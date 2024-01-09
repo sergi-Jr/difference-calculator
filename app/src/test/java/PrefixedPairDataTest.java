@@ -7,7 +7,7 @@ public class PrefixedPairDataTest {
     private static PrefixedPairData pairData;
 
     @BeforeAll
-    public static void CreateObjectInstance() {
+    public static void createObjectInstance() {
         pairData = new PrefixedPairData("key", true, "-");
     }
 
