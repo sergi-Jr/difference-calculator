@@ -2,7 +2,7 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.abstracts.extensions.FileFormatException;
-import hexlet.code.model.PrefixModel;
+import hexlet.code.model.PrefixedPairData;
 
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
@@ -23,13 +23,13 @@ public class Differ {
             throws InvalidPathException, IOException, FileFormatException {
         Map<String, Object> originalMappedData = Parser.parse(originalFilePathString);
         Map<String, Object> comparableMappedData = Parser.parse(comparableFilePathString);
-        Set<PrefixModel> dataDifference = getDifference(originalMappedData, comparableMappedData);
+        Set<PrefixedPairData> dataDifference = getDifference(originalMappedData, comparableMappedData);
         return makeOutputString(dataDifference);
     }
 
-    private static Set<PrefixModel> getDifference(Map<String, Object> originalMap,
-                                                  Map<String, Object> mapToCompare) {
-        SortedSet<PrefixModel> diffCheckResultSet = new TreeSet<>(PrefixModel::compareTo);
+    private static Set<PrefixedPairData> getDifference(Map<String, Object> originalMap,
+                                                       Map<String, Object> mapToCompare) {
+        SortedSet<PrefixedPairData> diffCheckResultSet = new TreeSet<>(PrefixedPairData::compareTo);
         List<Map.Entry<String, Object>> unitedMaps = new ArrayList<>(originalMap.entrySet());
         unitedMaps.addAll(mapToCompare.entrySet());
 
@@ -41,27 +41,27 @@ public class Differ {
                 if (mapToCompare.containsKey(key)) {
                     Object comparableValue = mapToCompare.get(key);
                     if (originalValue.equals(comparableValue)) {
-                        PrefixModel unchangedPrefixModel = new PrefixModel(key, value, unchangedPrefix);
-                        diffCheckResultSet.add(unchangedPrefixModel);
+                        PrefixedPairData unchangedPrefixedPairData = new PrefixedPairData(key, value, unchangedPrefix);
+                        diffCheckResultSet.add(unchangedPrefixedPairData);
                     } else {
-                        PrefixModel deletionPrefixModel = new PrefixModel(key, originalValue, deletionPrefix);
-                        diffCheckResultSet.add(deletionPrefixModel);
-                        PrefixModel insertionPrefixModel = new PrefixModel(key, comparableValue, insertionPrefix);
-                        diffCheckResultSet.add(insertionPrefixModel);
+                        PrefixedPairData deletionPrefixedPairData = new PrefixedPairData(key, originalValue, deletionPrefix);
+                        diffCheckResultSet.add(deletionPrefixedPairData);
+                        PrefixedPairData insertionPrefixedPairData = new PrefixedPairData(key, comparableValue, insertionPrefix);
+                        diffCheckResultSet.add(insertionPrefixedPairData);
                     }
                 } else {
-                    PrefixModel deletionPrefixModel = new PrefixModel(key, originalValue, deletionPrefix);
-                    diffCheckResultSet.add(deletionPrefixModel);
+                    PrefixedPairData deletionPrefixedPairData = new PrefixedPairData(key, originalValue, deletionPrefix);
+                    diffCheckResultSet.add(deletionPrefixedPairData);
                 }
             } else {
-                PrefixModel insertionPrefixModel = new PrefixModel(key, value, insertionPrefix);
-                diffCheckResultSet.add(insertionPrefixModel);
+                PrefixedPairData insertionPrefixedPairData = new PrefixedPairData(key, value, insertionPrefix);
+                diffCheckResultSet.add(insertionPrefixedPairData);
             }
         });
         return diffCheckResultSet;
     }
 
-    private static String makeOutputString(Set<PrefixModel> outputList) {
+    private static String makeOutputString(Set<PrefixedPairData> outputList) {
 
         StringBuilder builder = new StringBuilder("{");
 

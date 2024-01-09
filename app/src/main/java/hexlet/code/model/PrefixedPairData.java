@@ -2,12 +2,12 @@ package hexlet.code.model;
 
 import hexlet.abstracts.PairUnifier;
 
-public class PrefixModel implements Comparable<PrefixModel> {
+public class PrefixedPairData implements Comparable<PrefixedPairData> {
     private String key;
     private Object value;
     private String prefix;
 
-    public PrefixModel(String argumentKey, Object argumentValue, String argumentPrefix) {
+    public PrefixedPairData(String argumentKey, Object argumentValue, String argumentPrefix) {
         key = argumentKey;
         value = argumentValue;
         prefix = argumentPrefix;
@@ -25,7 +25,7 @@ public class PrefixModel implements Comparable<PrefixModel> {
         return prefix;
     }
 
-    public boolean equals(PrefixModel el2) {
+    public boolean equals(PrefixedPairData el2) {
         if (prefix.equals(el2.getPrefix())
             && key.equals(el2.getKey())
             && value.equals(el2.getValue())) {
@@ -35,7 +35,7 @@ public class PrefixModel implements Comparable<PrefixModel> {
     }
 
     @Override
-    public int compareTo(PrefixModel o) {
+    public int compareTo(PrefixedPairData o) {
         if (this.equals(o)) {
             return 0;
         }
