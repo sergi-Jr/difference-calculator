@@ -58,8 +58,8 @@ public class PrefixedPairData implements Comparable<PrefixedPairData> {
             if (v == null) {
                 v = "null";
             }
-            return k.toString().concat(": ").concat(v.toString());
+            return k.toString().concat(",").concat(v.toString());
         };
-        return prefix.concat(" ").concat(unifier.getString(key, value));
+        return prefix.concat("").concat(unifier.getString(key, value));
     }
 }
