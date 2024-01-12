@@ -29,7 +29,7 @@ public class App implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        String callResult = Differ.generate(originalFilePath, comparableFilePath);
+        String callResult = Differ.generate(originalFilePath, comparableFilePath, format);
         System.out.println(callResult);
         return callResult;
     }
