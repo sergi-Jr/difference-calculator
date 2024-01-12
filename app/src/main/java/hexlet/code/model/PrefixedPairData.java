@@ -26,9 +26,15 @@ public class PrefixedPairData implements Comparable<PrefixedPairData> {
     }
 
     public boolean equals(PrefixedPairData el2) {
+        boolean compareValuesResult;
+        try {
+            compareValuesResult = value.equals(el2.getValue());
+        } catch (NullPointerException e) {
+            compareValuesResult = value == el2.getValue();
+        }
         if (prefix.equals(el2.getPrefix())
             && key.equals(el2.getKey())
-            && value.equals(el2.getValue())) {
+            && compareValuesResult) {
             return true;
         }
         return false;
@@ -48,7 +54,12 @@ public class PrefixedPairData implements Comparable<PrefixedPairData> {
 
     @Override
     public String toString() {
-        PairUnifier unifier = (k, v) -> k.toString().concat(": ").concat(v.toString());
+        PairUnifier unifier = (k, v) -> {
+            if (v == null) {
+                v = "null";
+            }
+            return k.toString().concat(": ").concat(v.toString());
+        };
         return prefix.concat(" ").concat(unifier.getString(key, value));
     }
 }

@@ -40,7 +40,13 @@ public class Differ {
                 Object originalValue = originalMap.get(key);
                 if (mapToCompare.containsKey(key)) {
                     Object comparableValue = mapToCompare.get(key);
-                    if (originalValue.equals(comparableValue)) {
+                    boolean compareValuesResult;
+                    try {
+                        compareValuesResult = originalValue.equals(comparableValue);
+                    } catch (NullPointerException e) {
+                        compareValuesResult = originalValue == comparableValue;
+                    }
+                    if (compareValuesResult) {
                         PrefixedPairData unchangedPrefixedData = new PrefixedPairData(key, value, unchangedPrefix);
                         diffCheckResultSet.add(unchangedPrefixedData);
                     } else {

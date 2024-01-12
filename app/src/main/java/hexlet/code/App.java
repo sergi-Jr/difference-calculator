@@ -19,7 +19,7 @@ public class App implements Callable<String> {
                 paramLabel = "comparableFilePath")
     private String comparableFilePath;
     @Option(names = {"-f", "--format"},
-            description = "output format [default: stylish]",
+            description = "output format [default: ${DEFAULT-VALUE}]",
             paramLabel = "format")
     private String format = "stylish";
     public static void main(String[] args) {
