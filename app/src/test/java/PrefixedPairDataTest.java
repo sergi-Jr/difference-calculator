@@ -58,7 +58,7 @@ public class PrefixedPairDataTest {
 
     @Test
     public void toStringTest() {
-        String correct = "- key: true";
+        String correct = "-key,true";
         Assertions.assertEquals(correct, pairData.toString());
     }
 }
