@@ -19,15 +19,15 @@ public class Differ {
     private static String insertionPrefix = "+";
     private static String unchangedPrefix = " ";
 
-    public static String generate(String originalFilePathString, String comparableFilePathString)
+    public static String generate(String originalFilePathString, String comparableFilePathString, String format)
             throws InvalidPathException, IOException, FileFormatException {
         Map<String, Object> originalMappedData = Parser.parse(originalFilePathString);
         Map<String, Object> comparableMappedData = Parser.parse(comparableFilePathString);
         Set<PrefixedPairData> dataDifference = getDifference(originalMappedData, comparableMappedData);
-        return makeOutputString(dataDifference);
+        return Formatter.makeOutputString(dataDifference, format);
     }
 
-    private static Set<PrefixedPairData> getDifference(Map<String, Object> originalMap,
+    public static Set<PrefixedPairData> getDifference(Map<String, Object> originalMap,
                                                        Map<String, Object> mapToCompare) {
         SortedSet<PrefixedPairData> diffCheckResultSet = new TreeSet<>(PrefixedPairData::compareTo);
         List<Map.Entry<String, Object>> unitedMaps = new ArrayList<>(originalMap.entrySet());
@@ -67,18 +67,5 @@ public class Differ {
             }
         });
         return diffCheckResultSet;
-    }
-
-    private static String makeOutputString(Set<PrefixedPairData> outputList) {
-
-        StringBuilder builder = new StringBuilder("{");
-
-        outputList.forEach(model -> {
-            builder.append("\n  ");
-            builder.append(model.toString());
-        });
-
-        builder.append("\n}");
-        return builder.toString();
     }
 }
