@@ -1,23 +1,34 @@
 import hexlet.abstracts.FormatterFactory;
 import hexlet.abstracts.IFormatter;
+import hexlet.code.formatters.JsonFormatter;
 import hexlet.code.formatters.PlainFormatter;
 import hexlet.code.formatters.StylishFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class FormatterFactoryTest {
     @Test
-    public void buildTestPlainFormatterReturned() {
+    public void buildTestPlainFormatterReturned() throws IOException {
         String format = "plain";
         IFormatter formatter = FormatterFactory.build(format);
         Assertions.assertEquals(formatter instanceof PlainFormatter, true);
     }
 
     @Test
-    public void buildTestStylishFormatterReturned() {
+    public void buildTestStylishFormatterReturned() throws IOException {
         String format = "stylish";
 
         IFormatter formatter = FormatterFactory.build(format);
         Assertions.assertEquals(formatter instanceof StylishFormatter, true);
+    }
+
+    @Test
+    public void buildTestJsonFormatterReturned() throws IOException {
+        String format = "json";
+
+        IFormatter formatter = FormatterFactory.build(format);
+        Assertions.assertEquals(formatter instanceof JsonFormatter, true);
     }
 }

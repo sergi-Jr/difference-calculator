@@ -30,7 +30,7 @@ public class MapperFactoryTest {
     }
 
     @Test
-    public void getMapperExceptionReturned() throws IOException {
+    public void getMapperExceptionReturned() {
         String wrongExt = "doc";
         Throwable thrown = assertThrows(IOException.class, () -> {
             ObjectMapper mapper = MapperFactory.getMapper(wrongExt);
