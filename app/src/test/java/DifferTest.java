@@ -21,18 +21,18 @@ public class DifferTest {
         map1 = new HashMap<>();
         map1.put("key1", true);
         map1.put("default", null);
-        map1.put("string", 42);
+        map1.put("string", "42");
 
         map2 = new HashMap<>();
         map2.put("key2", false);
-        map2.put("default", 42);
+        map2.put("default", "42");
 
         set = new TreeSet<>(PrefixedPairData::compareTo);
         set.add(new PrefixedPairData("key1", true, StructureObjectStatus.DELETE));
         set.add(new PrefixedPairData("default", null, StructureObjectStatus.REPLACE));
-        set.add(new PrefixedPairData("string", 42, StructureObjectStatus.DELETE));
+        set.add(new PrefixedPairData("string", "42", StructureObjectStatus.DELETE));
         set.add(new PrefixedPairData("key2", false, StructureObjectStatus.ADD));
-        set.add(new PrefixedPairData("default", 42, StructureObjectStatus.REWRITE));
+        set.add(new PrefixedPairData("default", "42", StructureObjectStatus.REWRITE));
     }
 
     @Test

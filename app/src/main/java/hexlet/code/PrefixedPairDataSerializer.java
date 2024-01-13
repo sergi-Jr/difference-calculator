@@ -7,7 +7,7 @@ import hexlet.code.model.PrefixedPairData;
 
 import java.io.IOException;
 
-public class PrefixedPairDataSerializer extends StdSerializer<PrefixedPairData> {
+public final class PrefixedPairDataSerializer extends StdSerializer<PrefixedPairData> {
 
     public PrefixedPairDataSerializer() {
         this(null);

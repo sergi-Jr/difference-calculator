@@ -6,7 +6,7 @@ import hexlet.code.model.PrefixedPairData;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class PlainFormatter implements IFormatter {
+public final class PlainFormatter implements IFormatter {
     @Override
     public String  makeOutputString(Set<PrefixedPairData> dataSet) {
         StringBuilder builder = new StringBuilder();

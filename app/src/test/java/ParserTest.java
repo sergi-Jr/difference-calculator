@@ -17,7 +17,7 @@ public class ParserTest {
     public static void init() {
         map = new HashMap<>();
         map.put("setting1", "Some value");
-        map.put("setting2", 200);
+        map.put("setting2", "200");
         map.put("setting3", true);
     }
 

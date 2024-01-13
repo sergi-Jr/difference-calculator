@@ -1,5 +1,5 @@
 {
   "setting1": "Some value",
-  "setting2": 200,
+  "setting2": "200",
   "setting3": true
 }

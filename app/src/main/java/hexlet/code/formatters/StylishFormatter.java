@@ -6,7 +6,7 @@ import hexlet.code.model.PrefixedPairData;
 
 import java.util.Set;
 
-public class StylishFormatter implements IFormatter {
+public final class StylishFormatter implements IFormatter {
 
     @Override
     public String makeOutputString(Set<PrefixedPairData> dataSet) {

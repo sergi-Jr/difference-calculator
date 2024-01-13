@@ -11,7 +11,7 @@ import java.util.concurrent.Callable;
         mixinStandardHelpOptions = true,
         version = "gendiff 1.0.0",
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable<String> {
+public final class App implements Callable<String> {
     @Parameters(description = "Path to original file",
                 paramLabel = "originalFilePath")
     private String originalFilePath;

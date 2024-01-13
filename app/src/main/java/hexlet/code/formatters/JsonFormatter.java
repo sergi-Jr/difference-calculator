@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Set;
 
-public class JsonFormatter implements IFormatter {
+public final class JsonFormatter implements IFormatter {
     private ObjectMapper mapper;
 
     public JsonFormatter() throws IOException {

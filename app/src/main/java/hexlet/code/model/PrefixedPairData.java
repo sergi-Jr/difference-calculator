@@ -3,7 +3,7 @@ package hexlet.code.model;
 import hexlet.abstracts.PairUnifier;
 import hexlet.code.StructureObjectStatus;
 
-public class PrefixedPairData implements Comparable<PrefixedPairData> {
+public final class PrefixedPairData implements Comparable<PrefixedPairData> {
     private String key;
     private Object value;
     private StructureObjectStatus prefix;
