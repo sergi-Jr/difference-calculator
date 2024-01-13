@@ -32,12 +32,6 @@ check-deps:
 
 build-run: build run
 
-catfile:
-	cat src/test/resources/fixtures/file1.json
-catfile-2:
-	cat src/test/resources/fixtures/file2.json
-preset-test:
-	./build/install/app/bin/app src/test/resources/fixtures/file1.json src/test/resources/fixtures/file2.json
-preset-test-plain:
-	./build/install/app/bin/app -f plain src/test/resources/fixtures/file1.json src/test/resources/fixtures/file2.json
+preset:
+	./build/install/app/bin/app -f json src/test/resources/fixtures/file1.json src/test/resources/fixtures/file2.json
 .PHONY: build

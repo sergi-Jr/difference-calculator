@@ -8,3 +8,4 @@
 ##### [![Static Badge](https://img.shields.io/badge/YAML-green.svg)](https://asciinema.org/a/TUpgoc5iK74gbDQyfzTsI9kGv)
 ##### [![Static Badge](https://img.shields.io/badge/Nested-white.svg)](https://asciinema.org/a/b4mhFLmjcYLibYKqqwlzGSUCU)
 ##### [![Static Badge](https://img.shields.io/badge/PlainFormat-blue.svg)](https://asciinema.org/a/rpOLAwoqHWQ37Anh6rgtgRHce)
+##### [![Static Badge](https://img.shields.io/badge/JsonFormat-pink.svg)](https://asciinema.org/a/tSgZ2SPjIWJbrTOfuQD29dY8W)
