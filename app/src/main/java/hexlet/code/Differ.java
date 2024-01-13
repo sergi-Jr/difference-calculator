@@ -13,7 +13,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class Differ {
-    public static String generate(String originalFilePathString, String comparableFilePathString) {
+    public static String generate(String originalFilePathString, String comparableFilePathString)
+            throws InvalidPathException, IOException {
         return generate(originalFilePathString, comparableFilePathString, "stylish");
     }
     public static String generate(String originalFilePathString, String comparableFilePathString, String format)
