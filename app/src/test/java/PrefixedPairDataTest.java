@@ -1,3 +1,4 @@
+import hexlet.code.StructureObjectStatus;
 import hexlet.code.model.PrefixedPairData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -8,7 +9,7 @@ public class PrefixedPairDataTest {
 
     @BeforeAll
     public static void createObjectInstance() {
-        pairData = new PrefixedPairData("key", true, "-");
+        pairData = new PrefixedPairData("key", true, StructureObjectStatus.DELETE);
     }
 
     @Test
@@ -27,32 +28,37 @@ public class PrefixedPairDataTest {
     }
 
     @Test
+    public void getStatusObjectTest() {
+        Assertions.assertEquals(pairData.getObjectStatus(), StructureObjectStatus.DELETE);
+    }
+
+    @Test
     public void equalsTestTrueReturned() {
-        PrefixedPairData actual = new PrefixedPairData("key", true, "-");
+        PrefixedPairData actual = new PrefixedPairData("key", true, StructureObjectStatus.DELETE);
         Assertions.assertEquals(pairData.equals(actual), true);
     }
 
     @Test
     public void equalsTestFalseReturned() {
-        PrefixedPairData actual = new PrefixedPairData("notSameKey", 2, " ");
+        PrefixedPairData actual = new PrefixedPairData("notSameKey", 2, StructureObjectStatus.UNCHANGED);
         Assertions.assertEquals(pairData.equals(actual), false);
     }
 
     @Test
     public void compareToTestZeroReturned() {
-        PrefixedPairData actual = new PrefixedPairData("key", true, "-");
+        PrefixedPairData actual = new PrefixedPairData("key", true, StructureObjectStatus.DELETE);
         Assertions.assertEquals(pairData.compareTo(actual), 0);
     }
 
     @Test
     public void compareToTestPositiveOneReturned() {
-        PrefixedPairData actual = new PrefixedPairData("key", true, "+");
+        PrefixedPairData actual = new PrefixedPairData("key", true, StructureObjectStatus.ADD);
         Assertions.assertEquals(actual.compareTo(pairData), 1);
     }
 
     @Test
     public void compareToTestNegativeOneReturned() {
-        PrefixedPairData actual = new PrefixedPairData("key", true, "+");
+        PrefixedPairData actual = new PrefixedPairData("key", true, StructureObjectStatus.ADD);
         Assertions.assertEquals(pairData.compareTo(actual), -1);
     }
 

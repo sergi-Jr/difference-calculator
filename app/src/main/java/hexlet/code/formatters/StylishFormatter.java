@@ -1,33 +1,31 @@
-package hexlet.code;
+package hexlet.code.formatters;
 
 import hexlet.abstracts.PairUnifier;
+import hexlet.abstracts.IFormatter;
 import hexlet.code.model.PrefixedPairData;
 
 import java.util.Set;
 
-public final class Formatter {
-    public static String makeOutputString(Set<PrefixedPairData> dataSet, String format) {
-        switch (format) {
-            default:
-                return getStylish(dataSet);
-        }
-    }
+public class StylishFormatter implements IFormatter {
 
-    private static String getStylish(Set<PrefixedPairData> dataSet) {
+    @Override
+    public String makeOutputString(Set<PrefixedPairData> dataSet) {
         StringBuilder builder = new StringBuilder("{");
         PairUnifier unifier = (k, v) -> {
             if (v == null) {
                 v = "null";
+            } else if (k == null) {
+                k = "null";
             }
             return k.toString().concat(": ").concat(v.toString());
         };
         dataSet.forEach(model -> {
-            builder.append("\n  ");
+            builder.append(System.lineSeparator() + "  ");
             builder.append(model.getPrefix().concat(" ")
-                                            .concat(unifier.getString(model.getKey(), model.getValue())));
+                    .concat(unifier.getString(model.getKey(), model.getValue())));
         });
 
-        builder.append("\n}");
+        builder.append(System.lineSeparator() + "}");
         return builder.toString();
     }
 }

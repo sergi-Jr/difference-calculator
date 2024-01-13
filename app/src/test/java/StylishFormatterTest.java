@@ -1,4 +1,5 @@
-import hexlet.code.Formatter;
+import hexlet.code.StructureObjectStatus;
+import hexlet.code.formatters.StylishFormatter;
 import hexlet.code.model.PrefixedPairData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -7,15 +8,18 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class FormatterTest {
+public class StylishFormatterTest {
     private static Set<PrefixedPairData> dataSet = new TreeSet<>();
     private static String expectedStylish;
 
     @BeforeAll
     public static void setInitialData() {
-        PrefixedPairData pairData1 = new PrefixedPairData("key", true, " ");
-        PrefixedPairData pairData2 = new PrefixedPairData("default", null, "-");
-        PrefixedPairData pairData3 = new PrefixedPairData("default", "[1, 2, 3]", "+");
+        PrefixedPairData pairData1 =
+                new PrefixedPairData("key", true, StructureObjectStatus.UNCHANGED);
+        PrefixedPairData pairData2 =
+                new PrefixedPairData("default", null, StructureObjectStatus.REPLACE);
+        PrefixedPairData pairData3 =
+                new PrefixedPairData("default", "[1, 2, 3]", StructureObjectStatus.REWRITE);
         dataSet.add(pairData1);
         dataSet.add(pairData2);
         dataSet.add(pairData3);
@@ -29,7 +33,7 @@ public class FormatterTest {
 
     @Test
     public void makeOutputStringTestStylish() {
-        String actual = Formatter.makeOutputString(dataSet, "stylish");
+        String actual = new StylishFormatter().makeOutputString(dataSet);
         Assertions.assertEquals(expectedStylish, actual);
     }
 }

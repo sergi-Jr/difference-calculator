@@ -1,13 +1,14 @@
 package hexlet.code.model;
 
 import hexlet.abstracts.PairUnifier;
+import hexlet.code.StructureObjectStatus;
 
 public class PrefixedPairData implements Comparable<PrefixedPairData> {
     private String key;
     private Object value;
-    private String prefix;
+    private StructureObjectStatus prefix;
 
-    public PrefixedPairData(String argumentKey, Object argumentValue, String argumentPrefix) {
+    public PrefixedPairData(String argumentKey, Object argumentValue, StructureObjectStatus argumentPrefix) {
         key = argumentKey;
         value = argumentValue;
         prefix = argumentPrefix;
@@ -21,8 +22,11 @@ public class PrefixedPairData implements Comparable<PrefixedPairData> {
         return value;
     }
 
-    public String getPrefix() {
+    public StructureObjectStatus getObjectStatus() {
         return prefix;
+    }
+    public String getPrefix() {
+        return prefix.getPrefix();
     }
 
     public boolean equals(PrefixedPairData el2) {
@@ -32,7 +36,7 @@ public class PrefixedPairData implements Comparable<PrefixedPairData> {
         } catch (NullPointerException e) {
             compareValuesResult = value == el2.getValue();
         }
-        if (prefix.equals(el2.getPrefix())
+        if (prefix.equals(el2.getObjectStatus())
             && key.equals(el2.getKey())
             && compareValuesResult) {
             return true;
@@ -47,7 +51,7 @@ public class PrefixedPairData implements Comparable<PrefixedPairData> {
         }
         int compareResult = key.compareTo(o.getKey());
         if (compareResult == 0) {
-            compareResult = prefix.compareTo(o.getPrefix()) > 0 ? -1 : 1;
+            compareResult = prefix.compareTo(o.getObjectStatus()) > 0 ? -1 : 1;
         }
         return compareResult;
     }
@@ -57,9 +61,11 @@ public class PrefixedPairData implements Comparable<PrefixedPairData> {
         PairUnifier unifier = (k, v) -> {
             if (v == null) {
                 v = "null";
+            } else if (k == null) {
+                k = "null";
             }
             return k.toString().concat(",").concat(v.toString());
         };
-        return prefix.concat("").concat(unifier.getString(key, value));
+        return prefix.getPrefix().concat("").concat(unifier.getString(key, value));
     }
 }

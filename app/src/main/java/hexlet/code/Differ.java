@@ -1,7 +1,7 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.abstracts.extensions.FileFormatException;
+import hexlet.abstracts.FormatterFactory;
 import hexlet.code.model.PrefixedPairData;
 
 import java.io.IOException;
@@ -15,20 +15,17 @@ import java.util.TreeSet;
 
 public class Differ {
     private static ObjectMapper mapper = new ObjectMapper();
-    private static String deletionPrefix = "-";
-    private static String insertionPrefix = "+";
-    private static String unchangedPrefix = " ";
 
     public static String generate(String originalFilePathString, String comparableFilePathString, String format)
-            throws InvalidPathException, IOException, FileFormatException {
+            throws InvalidPathException, IOException {
         Map<String, Object> originalMappedData = Parser.parse(originalFilePathString);
         Map<String, Object> comparableMappedData = Parser.parse(comparableFilePathString);
         Set<PrefixedPairData> dataDifference = getDifference(originalMappedData, comparableMappedData);
-        return Formatter.makeOutputString(dataDifference, format);
+        return FormatterFactory.build(format).makeOutputString(dataDifference);
     }
 
     public static Set<PrefixedPairData> getDifference(Map<String, Object> originalMap,
-                                                       Map<String, Object> mapToCompare) {
+                                                      Map<String, Object> mapToCompare) {
         SortedSet<PrefixedPairData> diffCheckResultSet = new TreeSet<>(PrefixedPairData::compareTo);
         List<Map.Entry<String, Object>> unitedMaps = new ArrayList<>(originalMap.entrySet());
         unitedMaps.addAll(mapToCompare.entrySet());
@@ -47,22 +44,24 @@ public class Differ {
                         compareValuesResult = originalValue == comparableValue;
                     }
                     if (compareValuesResult) {
-                        PrefixedPairData unchangedPrefixedData = new PrefixedPairData(key, value, unchangedPrefix);
+                        PrefixedPairData unchangedPrefixedData =
+                                new PrefixedPairData(key, value, StructureObjectStatus.UNCHANGED);
                         diffCheckResultSet.add(unchangedPrefixedData);
                     } else {
                         PrefixedPairData deletionPrefixedData =
-                                new PrefixedPairData(key, originalValue, deletionPrefix);
+                                new PrefixedPairData(key, originalValue, StructureObjectStatus.REPLACE);
                         diffCheckResultSet.add(deletionPrefixedData);
                         PrefixedPairData insertionPrefixedData =
-                                new PrefixedPairData(key, comparableValue, insertionPrefix);
+                                new PrefixedPairData(key, comparableValue, StructureObjectStatus.REWRITE);
                         diffCheckResultSet.add(insertionPrefixedData);
                     }
                 } else {
-                    PrefixedPairData deletionPrefixedData = new PrefixedPairData(key, originalValue, deletionPrefix);
+                    PrefixedPairData deletionPrefixedData =
+                            new PrefixedPairData(key, originalValue, StructureObjectStatus.DELETE);
                     diffCheckResultSet.add(deletionPrefixedData);
                 }
             } else {
-                PrefixedPairData insertionPrefixedData = new PrefixedPairData(key, value, insertionPrefix);
+                PrefixedPairData insertionPrefixedData = new PrefixedPairData(key, value, StructureObjectStatus.ADD);
                 diffCheckResultSet.add(insertionPrefixedData);
             }
         });
