@@ -20,7 +20,9 @@ public class PlainFormatter implements IFormatter {
                     builder.append("' was added with value: ");
                     Object outputValue = isReferenceType(model.getValue());
                     builder.append(outputValue);
-                    builder.append(System.lineSeparator());
+                    if (i + 1 != dataList.size()) {
+                        builder.append(System.lineSeparator());
+                    }
                     break;
                 case REPLACE:
                     PrefixedPairData nextModel = dataList.get(i + 1);
@@ -34,13 +36,17 @@ public class PlainFormatter implements IFormatter {
                     Object outputValueTo = isReferenceType(nextModel.getValue());
                     builder.append(outputValueTo);
                     i++;
-                    builder.append(System.lineSeparator());
+                    if (i + 1 != dataList.size()) {
+                        builder.append(System.lineSeparator());
+                    }
                     break;
                 case DELETE:
                     builder.append("Property '");
                     builder.append(model.getKey());
                     builder.append("' was removed");
-                    builder.append(System.lineSeparator());
+                    if (i + 1 != dataList.size()) {
+                        builder.append(System.lineSeparator());
+                    }
                     break;
                 default:
                     break;
