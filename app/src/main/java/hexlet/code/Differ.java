@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.abstracts.FormatterFactory;
 import hexlet.code.model.PrefixedPairData;
 
@@ -14,8 +13,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class Differ {
-    private static ObjectMapper mapper = new ObjectMapper();
-
     public static String generate(String originalFilePathString, String comparableFilePathString, String format)
             throws InvalidPathException, IOException {
         Map<String, Object> originalMappedData = Parser.parse(originalFilePathString);
