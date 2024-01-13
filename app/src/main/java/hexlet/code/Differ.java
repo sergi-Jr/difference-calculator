@@ -13,6 +13,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class Differ {
+    public static String generate(String originalFilePathString, String comparableFilePathString) {
+        return generate(originalFilePathString, comparableFilePathString, "stylish");
+    }
     public static String generate(String originalFilePathString, String comparableFilePathString, String format)
             throws InvalidPathException, IOException {
         Map<String, Object> originalMappedData = Parser.parse(originalFilePathString);
