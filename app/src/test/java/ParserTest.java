@@ -2,6 +2,7 @@ import hexlet.code.Parser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import utils.FixtureReader;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,11 +11,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
-    private static String filePath = "src/test/resources/fixtures/parserTest.json";
+    private static String filePath;
     private static Map<String, Object> map;
 
     @BeforeAll
     public static void init() {
+        filePath = FixtureReader.createFilePath("parserTest.json");
         map = new HashMap<>();
         map.put("setting1", "Some value");
         map.put("setting2", "200");
