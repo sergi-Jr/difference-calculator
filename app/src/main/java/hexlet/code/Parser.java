@@ -15,7 +15,6 @@ public final class Parser {
             throws IllegalArgumentException, IOException {
         String fileExtension = FilenameUtils.getExtension(filepath);
         ObjectMapper mapper = MapperFactory.getMapper(fileExtension);
-
         Path path = Paths.get(filepath).toAbsolutePath().normalize();
 
         if (!Files.exists(path)) {
@@ -23,7 +22,6 @@ public final class Parser {
         }
 
         byte[] fileBytesArr = Files.readAllBytes(path);
-
         return mapper.readValue(fileBytesArr, Map.class);
     }
 }
