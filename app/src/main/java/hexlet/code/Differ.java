@@ -51,30 +51,25 @@ public class Differ {
                     compareValuesResult = originalMapValue == comparableMapValue;
                 }
                 if (compareValuesResult) {
-                    diffEntity.put("status", StructureObjectStatus.UNCHANGED);
-                    diffEntity.put("key", k);
-                    diffEntity.put("value", originalMapValue);
+                    createDiffEntity(diffEntity, StructureObjectStatus.UNCHANGED, k, originalMapValue);
                 } else {
-                    diffEntity.put("status", StructureObjectStatus.REPLACE);
-                    diffEntity.put("key", k);
-                    diffEntity.put("value", originalMapValue);
+                    createDiffEntity(diffEntity, StructureObjectStatus.REPLACE, k, originalMapValue);
                     diffEntity.put("replacement", comparableMapValue);
                 }
-                diffEntities.add(diffEntity);
             } else if (originalMap.containsKey(k)) {
-                diffEntity = new LinkedHashMap<>();
-                diffEntity.put("status", StructureObjectStatus.DELETE);
-                diffEntity.put("key", k);
-                diffEntity.put("value", originalMapValue);
-                diffEntities.add(diffEntity);
+                createDiffEntity(diffEntity, StructureObjectStatus.DELETE, k, originalMapValue);
             } else {
-                diffEntity = new LinkedHashMap<>();
-                diffEntity.put("status", StructureObjectStatus.ADD);
-                diffEntity.put("key", k);
-                diffEntity.put("value", comparableMapValue);
-                diffEntities.add(diffEntity);
+                createDiffEntity(diffEntity, StructureObjectStatus.ADD, k, comparableMapValue);
             }
+            diffEntities.add(diffEntity);
         }
         return diffEntities;
+    }
+
+    private static void createDiffEntity(Map<String, Object> entity, StructureObjectStatus status,
+                                  String key, Object value) {
+        entity.put("status", status);
+        entity.put("key", key);
+        entity.put("value", value);
     }
 }
