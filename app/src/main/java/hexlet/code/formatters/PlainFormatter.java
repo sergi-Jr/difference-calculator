@@ -1,50 +1,47 @@
 package hexlet.code.formatters;
 
-import hexlet.abstracts.IFormatter;
-import hexlet.code.model.PrefixedPairData;
+import hexlet.code.StructureObjectStatus;
+import hexlet.code.abstracts.interfaces.IFormatter;
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
 
 public final class PlainFormatter implements IFormatter {
     @Override
-    public String  makeOutputString(Set<PrefixedPairData> dataSet) {
+    public String  makeOutputString(List<Map<String, Object>> data) {
         StringBuilder builder = new StringBuilder();
-        ArrayList<PrefixedPairData> dataList = new ArrayList<>(dataSet);
-        for (int i = 0; i < dataList.size(); i++) {
-            PrefixedPairData model = dataList.get(i);
-            switch (model.getObjectStatus()) {
+
+        for (int i = 0; i < data.size(); i++) {
+            Map<String, Object> entity = data.get(i);
+            switch ((StructureObjectStatus) entity.get("status")) {
                 case ADD:
                     builder.append("Property '");
-                    builder.append(model.getKey());
+                    builder.append(entity.get("key"));
                     builder.append("' was added with value: ");
-                    Object outputValue = isReferenceType(model.getValue());
+                    Object outputValue = isReferenceType(entity.get("value"));
                     builder.append(outputValue);
-                    if (i + 1 != dataList.size()) {
+                    if (i + 1 != data.size()) {
                         builder.append(System.lineSeparator());
                     }
                     break;
                 case REPLACE:
-                    PrefixedPairData nextModel = dataList.get(i + 1);
-
                     builder.append("Property '");
-                    builder.append(model.getKey());
+                    builder.append(entity.get("key"));
                     builder.append("' was updated. From ");
-                    Object outputValueFrom = isReferenceType(model.getValue());
+                    Object outputValueFrom = isReferenceType(entity.get("value"));
                     builder.append(outputValueFrom);
                     builder.append(" to ");
-                    Object outputValueTo = isReferenceType(nextModel.getValue());
+                    Object outputValueTo = isReferenceType(entity.get("replacement"));
                     builder.append(outputValueTo);
-                    i++;
-                    if (i + 1 != dataList.size()) {
+                    if (i + 1 != data.size()) {
                         builder.append(System.lineSeparator());
                     }
                     break;
                 case DELETE:
                     builder.append("Property '");
-                    builder.append(model.getKey());
+                    builder.append(entity.get("key"));
                     builder.append("' was removed");
-                    if (i + 1 != dataList.size()) {
+                    if (i + 1 != data.size()) {
                         builder.append(System.lineSeparator());
                     }
                     break;

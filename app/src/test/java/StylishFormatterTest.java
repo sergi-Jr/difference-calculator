@@ -1,29 +1,28 @@
 import hexlet.code.StructureObjectStatus;
 import hexlet.code.formatters.StylishFormatter;
-import hexlet.code.model.PrefixedPairData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class StylishFormatterTest {
-    private static Set<PrefixedPairData> dataSet = new TreeSet<>();
+    private static List<Map<String, Object>> data = new ArrayList<>();
     private static String expectedStylish;
 
     @BeforeAll
     public static void setInitialData() {
-        PrefixedPairData pairData1 =
-                new PrefixedPairData("key", true, StructureObjectStatus.UNCHANGED);
-        PrefixedPairData pairData2 =
-                new PrefixedPairData("default", null, StructureObjectStatus.REPLACE);
-        PrefixedPairData pairData3 =
-                new PrefixedPairData("default", "[1, 2, 3]", StructureObjectStatus.REWRITE);
-        dataSet.add(pairData1);
-        dataSet.add(pairData2);
-        dataSet.add(pairData3);
-
+        Map<String, Object> entity1 = Map.of("status", StructureObjectStatus.REPLACE,
+                "key", "default",
+                "value", "null",
+                "replacement", "[1, 2, 3]");
+        Map<String, Object> entity2 = Map.of("status", StructureObjectStatus.UNCHANGED,
+                "key", "key",
+                "value", true);
+        data.add(entity1);
+        data.add(entity2);
         expectedStylish = "{"
                 + "\n  - default: null"
                 + "\n  + default: [1, 2, 3]"
@@ -33,7 +32,7 @@ public class StylishFormatterTest {
 
     @Test
     public void makeOutputStringTestStylish() {
-        String actual = new StylishFormatter().makeOutputString(dataSet);
+        String actual = new StylishFormatter().makeOutputString(data);
         Assertions.assertEquals(expectedStylish, actual);
     }
 }

@@ -1,23 +1,72 @@
-[{" chars1":["a","b","c"]},
-{"-chars2":["d","e","f"]},
-{"+chars2":false},
-{"-checked":false},
-{"+checked":true},
-{"-default":null},
-{"+default":["value1","value2"]},
-{"-id":45},
-{"+id":null},
-{"-key1":"value1"},
-{"+key2":"value2"},
-{" numbers1":[1,2,3,4]},
-{"-numbers2":[2,3,4,5]},
-{"+numbers2":[22,33,44,55]},
-{"-numbers3":[3,4,5]},
-{"+numbers4":[4,5,6]},
-{"+obj1":{"nestedKey":"value","isNested":true}},
-{"-setting1":"Some value"},
-{"+setting1":"Another value"},
-{"-setting2":200},
-{"+setting2":300},
-{"-setting3":true},
-{"+setting3":"none"}]
+[ {
+  "status" : "UNCHANGED",
+  "key" : "chars1",
+  "value" : [ "a", "b", "c" ]
+}, {
+  "status" : "REPLACE",
+  "key" : "chars2",
+  "value" : [ "d", "e", "f" ],
+  "replacement" : false
+}, {
+  "status" : "REPLACE",
+  "key" : "checked",
+  "value" : false,
+  "replacement" : true
+}, {
+  "status" : "REPLACE",
+  "key" : "default",
+  "value" : null,
+  "replacement" : [ "value1", "value2" ]
+}, {
+  "status" : "REPLACE",
+  "key" : "id",
+  "value" : 45,
+  "replacement" : null
+}, {
+  "status" : "DELETE",
+  "key" : "key1",
+  "value" : "value1"
+}, {
+  "status" : "ADD",
+  "key" : "key2",
+  "value" : "value2"
+}, {
+  "status" : "UNCHANGED",
+  "key" : "numbers1",
+  "value" : [ 1, 2, 3, 4 ]
+}, {
+  "status" : "REPLACE",
+  "key" : "numbers2",
+  "value" : [ 2, 3, 4, 5 ],
+  "replacement" : [ 22, 33, 44, 55 ]
+}, {
+  "status" : "DELETE",
+  "key" : "numbers3",
+  "value" : [ 3, 4, 5 ]
+}, {
+  "status" : "ADD",
+  "key" : "numbers4",
+  "value" : [ 4, 5, 6 ]
+}, {
+  "status" : "ADD",
+  "key" : "obj1",
+  "value" : {
+    "nestedKey" : "value",
+    "isNested" : true
+  }
+}, {
+  "status" : "REPLACE",
+  "key" : "setting1",
+  "value" : "Some value",
+  "replacement" : "Another value"
+}, {
+  "status" : "REPLACE",
+  "key" : "setting2",
+  "value" : 200,
+  "replacement" : 300
+}, {
+  "status" : "REPLACE",
+  "key" : "setting3",
+  "value" : true,
+  "replacement" : "none"
+} ]

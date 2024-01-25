@@ -1,15 +1,16 @@
 package hexlet.code.formatters;
 
-import hexlet.abstracts.PairUnifier;
-import hexlet.abstracts.IFormatter;
-import hexlet.code.model.PrefixedPairData;
+import hexlet.code.StructureObjectStatus;
+import hexlet.code.abstracts.interfaces.IFormatter;
+import hexlet.code.abstracts.interfaces.PairUnifier;
 
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
 
 public final class StylishFormatter implements IFormatter {
 
     @Override
-    public String makeOutputString(Set<PrefixedPairData> dataSet) {
+    public String makeOutputString(List<Map<String, Object>> data) {
         StringBuilder builder = new StringBuilder("{");
         PairUnifier unifier = (k, v) -> {
             if (v == null) {
@@ -19,10 +20,20 @@ public final class StylishFormatter implements IFormatter {
             }
             return k.toString().concat(": ").concat(v.toString());
         };
-        dataSet.forEach(model -> {
+
+        data.forEach(en -> {
+            StructureObjectStatus status = (StructureObjectStatus) en.get("status");
             builder.append(System.lineSeparator() + "  ");
-            builder.append(model.getPrefix().concat(" ")
-                    .concat(unifier.getString(model.getKey(), model.getValue())));
+            builder.append(status.getPrefix());
+            builder.append(" ");
+            if (status == StructureObjectStatus.REPLACE) {
+                builder.append(unifier.getString(en.get("key"), en.get("value")));
+                builder.append(System.lineSeparator());
+                builder.append("  + ");
+                builder.append(unifier.getString(en.get("key"), en.get("replacement")));
+            } else {
+                builder.append(unifier.getString(en.get("key"), en.get("value")));
+            }
         });
 
         builder.append(System.lineSeparator() + "}");

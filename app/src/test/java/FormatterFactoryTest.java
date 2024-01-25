@@ -1,5 +1,5 @@
-import hexlet.abstracts.FormatterFactory;
-import hexlet.abstracts.IFormatter;
+import hexlet.code.abstracts.factories.FormatterFactory;
+import hexlet.code.abstracts.interfaces.IFormatter;
 import hexlet.code.formatters.JsonFormatter;
 import hexlet.code.formatters.PlainFormatter;
 import hexlet.code.formatters.StylishFormatter;

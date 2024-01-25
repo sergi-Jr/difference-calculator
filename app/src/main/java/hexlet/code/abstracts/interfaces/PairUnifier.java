@@ -1,4 +1,4 @@
-package hexlet.abstracts;
+package hexlet.code.abstracts.interfaces;
 
 @FunctionalInterface
 public interface PairUnifier {

@@ -1,15 +1,17 @@
 package hexlet.code;
 
-import hexlet.abstracts.FormatterFactory;
-import hexlet.code.model.PrefixedPairData;
+import hexlet.code.abstracts.factories.FormatterFactory;
+import hexlet.code.abstracts.factories.ParserFactory;
+import hexlet.code.abstracts.interfaces.IParse;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class Differ {
@@ -19,53 +21,60 @@ public class Differ {
     }
     public static String generate(String originalFilePathString, String comparableFilePathString, String format)
             throws InvalidPathException, IOException {
-        Map<String, Object> originalMappedData = Parser.parse(originalFilePathString);
-        Map<String, Object> comparableMappedData = Parser.parse(comparableFilePathString);
-        Set<PrefixedPairData> dataDifference = getDifference(originalMappedData, comparableMappedData);
+        String originalData = new FileDataExtractor().prepare(originalFilePathString);
+        String comparableData = new FileDataExtractor().prepare(comparableFilePathString);
+        IParse<Map<String, Object>> originalSourceParser =
+                ParserFactory.build(FilenameUtils.getExtension(originalFilePathString));
+        IParse<Map<String, Object>> comparableSourceParser =
+                ParserFactory.build(FilenameUtils.getExtension(comparableFilePathString));
+        Map<String, Object> originalMappedData = originalSourceParser.parse(originalData);
+        Map<String, Object> comparableMappedData = comparableSourceParser.parse(comparableData);
+        List<Map<String, Object>> dataDifference = getDifference(originalMappedData, comparableMappedData);
         return FormatterFactory.build(format).makeOutputString(dataDifference);
     }
 
-    public static Set<PrefixedPairData> getDifference(Map<String, Object> originalMap,
-                                                      Map<String, Object> mapToCompare) {
-        SortedSet<PrefixedPairData> diffCheckResultSet = new TreeSet<>(PrefixedPairData::compareTo);
-        List<Map.Entry<String, Object>> unitedMaps = new ArrayList<>(originalMap.entrySet());
-        unitedMaps.addAll(mapToCompare.entrySet());
+    public static List<Map<String, Object>> getDifference(Map<String, Object> originalMap,
+                                                          Map<String, Object> mapToCompare) {
+        List<Map<String, Object>> diffEntities = new LinkedList<>();
+        Set<String> unitedKeys = new TreeSet<>(originalMap.keySet());
+        unitedKeys.addAll(mapToCompare.keySet());
 
-        unitedMaps.forEach(entry -> {
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            if (originalMap.containsKey(key)) {
-                Object originalValue = originalMap.get(key);
-                if (mapToCompare.containsKey(key)) {
-                    Object comparableValue = mapToCompare.get(key);
-                    boolean compareValuesResult;
-                    try {
-                        compareValuesResult = originalValue.equals(comparableValue);
-                    } catch (NullPointerException e) {
-                        compareValuesResult = originalValue == comparableValue;
-                    }
-                    if (compareValuesResult) {
-                        PrefixedPairData unchangedPrefixedData =
-                                new PrefixedPairData(key, value, StructureObjectStatus.UNCHANGED);
-                        diffCheckResultSet.add(unchangedPrefixedData);
-                    } else {
-                        PrefixedPairData deletionPrefixedData =
-                                new PrefixedPairData(key, originalValue, StructureObjectStatus.REPLACE);
-                        diffCheckResultSet.add(deletionPrefixedData);
-                        PrefixedPairData insertionPrefixedData =
-                                new PrefixedPairData(key, comparableValue, StructureObjectStatus.REWRITE);
-                        diffCheckResultSet.add(insertionPrefixedData);
-                    }
-                } else {
-                    PrefixedPairData deletionPrefixedData =
-                            new PrefixedPairData(key, originalValue, StructureObjectStatus.DELETE);
-                    diffCheckResultSet.add(deletionPrefixedData);
+        for (String k : unitedKeys) {
+            Map<String, Object> diffEntity = new LinkedHashMap<>();
+            Object originalMapValue = originalMap.get(k);
+            Object comparableMapValue = mapToCompare.get(k);
+            if (originalMap.containsKey(k) && mapToCompare.containsKey(k)) {
+                boolean compareValuesResult;
+                try {
+                    compareValuesResult = originalMapValue.equals(comparableMapValue);
+                } catch (NullPointerException e) {
+                    compareValuesResult = originalMapValue == comparableMapValue;
                 }
+                if (compareValuesResult) {
+                    diffEntity.put("status", StructureObjectStatus.UNCHANGED);
+                    diffEntity.put("key", k);
+                    diffEntity.put("value", originalMapValue);
+                } else {
+                    diffEntity.put("status", StructureObjectStatus.REPLACE);
+                    diffEntity.put("key", k);
+                    diffEntity.put("value", originalMapValue);
+                    diffEntity.put("replacement", comparableMapValue);
+                }
+                diffEntities.add(diffEntity);
+            } else if (originalMap.containsKey(k)) {
+                diffEntity = new LinkedHashMap<>();
+                diffEntity.put("status", StructureObjectStatus.DELETE);
+                diffEntity.put("key", k);
+                diffEntity.put("value", originalMapValue);
+                diffEntities.add(diffEntity);
             } else {
-                PrefixedPairData insertionPrefixedData = new PrefixedPairData(key, value, StructureObjectStatus.ADD);
-                diffCheckResultSet.add(insertionPrefixedData);
+                diffEntity = new LinkedHashMap<>();
+                diffEntity.put("status", StructureObjectStatus.ADD);
+                diffEntity.put("key", k);
+                diffEntity.put("value", comparableMapValue);
+                diffEntities.add(diffEntity);
             }
-        });
-        return diffCheckResultSet;
+        }
+        return diffEntities;
     }
 }

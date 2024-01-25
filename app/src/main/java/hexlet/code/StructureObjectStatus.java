@@ -3,7 +3,6 @@ package hexlet.code;
 public enum StructureObjectStatus {
     ADD("+"),
     DELETE("-"),
-    REWRITE("+"),
     REPLACE("-"),
     UNCHANGED(" ");
 

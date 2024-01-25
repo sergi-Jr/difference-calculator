@@ -1,29 +1,22 @@
 package hexlet.code.formatters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import hexlet.abstracts.IFormatter;
-import hexlet.abstracts.MapperFactory;
-import hexlet.code.PrefixedPairDataSerializer;
-import hexlet.code.model.PrefixedPairData;
+import hexlet.code.abstracts.interfaces.IFormatter;
+import hexlet.code.abstracts.factories.MapperFactory;
 
 import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
 
 public final class JsonFormatter implements IFormatter {
     private ObjectMapper mapper;
 
-    public JsonFormatter() throws IOException {
+    public JsonFormatter() throws IllegalArgumentException {
         mapper = MapperFactory.getMapper("json");
-        SimpleModule module = new SimpleModule("PrefixedPairDataSerializer");
-        module.addSerializer(PrefixedPairData.class, new PrefixedPairDataSerializer());
-        mapper.registerModule(module);
     }
+
     @Override
-    public String makeOutputString(Set<PrefixedPairData> dataSet) throws IOException {
-        StringWriter writer = new StringWriter();
-        mapper.writeValue(writer, dataSet);
-        return writer.toString().replaceAll("},", "}," + System.lineSeparator());
+    public String makeOutputString(List<Map<String, Object>> data) throws IOException {
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(data);
     }
 }

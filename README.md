@@ -8,7 +8,7 @@ The project is inspired by the [Hexlet team](https://ru.hexlet.io/). Completed b
 ## Code coverage
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a2933dcd76ae77b5e157/test_coverage)](https://codeclimate.com/github/sergi-Jr/java-project-71/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a2933dcd76ae77b5e157/maintainability)](https://codeclimate.com/github/sergi-Jr/java-project-71/maintainability)
-### Termianl records
+### Terminal records
 Click on any badge below to see how application works.
 ##### [![Static Badge](https://img.shields.io/badge/JSON-red.svg)](https://asciinema.org/a/J4njHTwxsBPkS8z0CeSo3NawX) Demonstrates the diff formation based on 2 plain JSON files. Format - stylish (default)
 ##### [![Static Badge](https://img.shields.io/badge/YAML-green.svg)](https://asciinema.org/a/TUpgoc5iK74gbDQyfzTsI9kGv) Demonstrates the diff formation based on 2 plain YML files. Format - stylish (default)
@@ -21,6 +21,6 @@ Download [Java](https://www.java.com/ru/download/manual.jsp) for your OS.
 
 Run terminal on your machine and type:
 ```
-javac -d bin %unzippedFilesFolderObsolutePath%/src/*
-java -classpath %unzippedFilesFolderObsolutePath%/bin App
+javac -d bin %unzippedFilesFolderAbsolutePath%/src/*
+java -classpath %unzippedFilesFolderAbsolutePath%/bin App
 ```
