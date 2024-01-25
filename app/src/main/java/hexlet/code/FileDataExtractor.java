@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileDataExtractor implements IDataPrepare {
+public final class FileDataExtractor implements IDataPrepare {
     @Override
     public String prepare(Object source) throws IOException {
         String filepath = (String) source;
