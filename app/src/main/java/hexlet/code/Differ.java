@@ -23,12 +23,15 @@ public class Differ {
             throws InvalidPathException, IOException {
         String originalData = new FileDataExtractor().prepare(originalFilePathString);
         String comparableData = new FileDataExtractor().prepare(comparableFilePathString);
+
         IParse<Map<String, Object>> originalSourceParser =
                 ParserFactory.build(FilenameUtils.getExtension(originalFilePathString));
         IParse<Map<String, Object>> comparableSourceParser =
                 ParserFactory.build(FilenameUtils.getExtension(comparableFilePathString));
+
         Map<String, Object> originalMappedData = originalSourceParser.parse(originalData);
         Map<String, Object> comparableMappedData = comparableSourceParser.parse(comparableData);
+
         List<Map<String, Object>> dataDifference = getDifference(originalMappedData, comparableMappedData);
         return FormatterFactory.build(format).makeOutputString(dataDifference);
     }
@@ -43,7 +46,11 @@ public class Differ {
             Map<String, Object> diffEntity = new LinkedHashMap<>();
             Object originalMapValue = originalMap.get(k);
             Object comparableMapValue = mapToCompare.get(k);
-            if (originalMap.containsKey(k) && mapToCompare.containsKey(k)) {
+            if (!originalMap.containsKey(k)) {
+                createDiffEntity(diffEntity, StructureObjectStatus.ADD, k, comparableMapValue);
+            } else if (!mapToCompare.containsKey(k)) {
+                createDiffEntity(diffEntity, StructureObjectStatus.DELETE, k, originalMapValue);
+            } else {
                 boolean compareValuesResult;
                 try {
                     compareValuesResult = originalMapValue.equals(comparableMapValue);
@@ -56,10 +63,6 @@ public class Differ {
                     createDiffEntity(diffEntity, StructureObjectStatus.REPLACE, k, originalMapValue);
                     diffEntity.put("replacement", comparableMapValue);
                 }
-            } else if (originalMap.containsKey(k)) {
-                createDiffEntity(diffEntity, StructureObjectStatus.DELETE, k, originalMapValue);
-            } else {
-                createDiffEntity(diffEntity, StructureObjectStatus.ADD, k, comparableMapValue);
             }
             diffEntities.add(diffEntity);
         }
@@ -67,7 +70,7 @@ public class Differ {
     }
 
     private static void createDiffEntity(Map<String, Object> entity, StructureObjectStatus status,
-                                  String key, Object value) {
+                                         String key, Object value) {
         entity.put("status", status);
         entity.put("key", key);
         entity.put("value", value);

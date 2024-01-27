@@ -1,5 +1,5 @@
 ## Description  
-java-project-61 is a project that defines the difference between two JSON (or YAML) structures. The result of the application is output to the terminal.  
+java-project-71 is a project that defines the difference between two JSON (or YAML) structures. The result of the application is output to the terminal.  
 Use ```[-hV]``` when program is execute for help  
 The project is inspired by the [Hexlet team](https://ru.hexlet.io/). Completed by a [platform student](https://ru.hexlet.io/u/sergi-jr) ([GitHub](https://github.com/sergi-Jr))
 ## Hexlet, Java CI tests and linter status:
