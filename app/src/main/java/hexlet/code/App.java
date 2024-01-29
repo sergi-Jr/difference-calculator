@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
 
 @Command(name = "generate diff",
         mixinStandardHelpOptions = true,
-        version = "gendiff 1.2.0",
+        version = "gendiff 1.3.0",
         description = "Compares two configuration files and shows a difference.")
 public final class App implements Callable<String> {
     @Parameters(description = "Path to original file",

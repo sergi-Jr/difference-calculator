@@ -1,25 +1,14 @@
 package hexlet.code.formatters;
 
 import hexlet.code.StructureObjectStatus;
-import hexlet.code.abstracts.interfaces.IFormatter;
-import hexlet.code.abstracts.interfaces.PairUnifier;
 
 import java.util.List;
 import java.util.Map;
 
-public final class StylishFormatter implements IFormatter {
+public final class StylishFormatter {
 
-    @Override
-    public String makeOutputString(List<Map<String, Object>> data) {
+    public static String makeOutputString(List<Map<String, Object>> data) {
         StringBuilder builder = new StringBuilder("{");
-        PairUnifier unifier = (k, v) -> {
-            if (v == null) {
-                v = "null";
-            } else if (k == null) {
-                k = "null";
-            }
-            return k.toString().concat(": ").concat(v.toString());
-        };
 
         data.forEach(en -> {
             StructureObjectStatus status = (StructureObjectStatus) en.get("status");
@@ -27,16 +16,25 @@ public final class StylishFormatter implements IFormatter {
             builder.append(status.getPrefix());
             builder.append(" ");
             if (status == StructureObjectStatus.REPLACE) {
-                builder.append(unifier.getString(en.get("key"), en.get("value")));
+                builder.append(uniteKeyValue(en.get("key"), en.get("value")));
                 builder.append(System.lineSeparator());
                 builder.append("  + ");
-                builder.append(unifier.getString(en.get("key"), en.get("replacement")));
+                builder.append(uniteKeyValue(en.get("key"), en.get("replacement")));
             } else {
-                builder.append(unifier.getString(en.get("key"), en.get("value")));
+                builder.append(uniteKeyValue(en.get("key"), en.get("value")));
             }
         });
 
         builder.append(System.lineSeparator() + "}");
         return builder.toString();
+    }
+
+    private static String uniteKeyValue(Object key, Object value) {
+        if (key == null) {
+            key = "null";
+        } else if (value == null) {
+            value = "null";
+        }
+        return key.toString().concat(": ").concat(value.toString());
     }
 }

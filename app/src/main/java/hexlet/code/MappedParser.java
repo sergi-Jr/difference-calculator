@@ -2,19 +2,27 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.abstracts.interfaces.IParse;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.util.Map;
 
-public final class MappedParser implements IParse<Map<String, Object>> {
-
+public final class MappedParser {
     private ObjectMapper mapper;
-
-    public MappedParser(ObjectMapper m) {
-        mapper = m;
+    public MappedParser(String format) {
+        switch (format) {
+            case "json":
+                mapper = new JsonMapper();
+                break;
+            case "yaml", "yml":
+                mapper = new YAMLMapper().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported parsing format: " + format);
+        }
     }
 
-    @Override
     public Map<String, Object> parse(String source) throws JsonProcessingException {
         return mapper.readValue(source, Map.class);
     }

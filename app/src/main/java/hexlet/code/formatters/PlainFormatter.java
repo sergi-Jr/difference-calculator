@@ -1,14 +1,13 @@
 package hexlet.code.formatters;
 
 import hexlet.code.StructureObjectStatus;
-import hexlet.code.abstracts.interfaces.IFormatter;
 
 import java.util.List;
 import java.util.Map;
 
-public final class PlainFormatter implements IFormatter {
-    @Override
-    public String  makeOutputString(List<Map<String, Object>> data) {
+public final class PlainFormatter {
+
+    public static String  makeOutputString(List<Map<String, Object>> data) {
         StringBuilder builder = new StringBuilder();
 
         for (int i = 0; i < data.size(); i++) {
@@ -52,7 +51,7 @@ public final class PlainFormatter implements IFormatter {
         return builder.toString();
     }
 
-    private Object isReferenceType(Object value) {
+    private static Object isReferenceType(Object value) {
         if (value instanceof String) {
             return "'" + value + "'";
         } else if (value instanceof Boolean || value instanceof Number || value == null) {
