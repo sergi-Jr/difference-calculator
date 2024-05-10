@@ -1,5 +1,5 @@
 ## Description  
-java-project-71 is a project that defines the difference between two JSON (or YAML) structures. The result of the application is output to the terminal.  
+Difference-calculator is a project that defines the difference between two JSON (or YAML) structures. The result of the application is output to the terminal.  
 Use ```[-hV]``` when program is execute for help  
 The project is inspired by the [Hexlet team](https://ru.hexlet.io/). Completed by a [platform student](https://ru.hexlet.io/u/sergi-jr) ([GitHub](https://github.com/sergi-Jr))
 ## Hexlet, Java CI tests and linter status:
@@ -16,7 +16,7 @@ Click on any badge below to see how application works.
 ##### [![Static Badge](https://img.shields.io/badge/PlainFormat-blue.svg)](https://asciinema.org/a/rpOLAwoqHWQ37Anh6rgtgRHce) Demonstrates the diff formation based on 2 JSON files. Format - plain
 ##### [![Static Badge](https://img.shields.io/badge/JsonFormat-pink.svg)](https://asciinema.org/a/tSgZ2SPjIWJbrTOfuQD29dY8W) Demonstrates the diff formation based on 2 JSON files. Format - json 
 ### How to use
-Download [zip](https://github.com/sergi-Jr/java-project-71/archive/refs/heads/main.zip). Then unzip into prefered folder.  
+Download [zip](https://github.com/sergi-Jr/difference-calculator/archive/refs/heads/main.zip). Then unzip into prefered folder.  
 Download [Java](https://www.java.com/ru/download/manual.jsp) for your OS.
 
 Run terminal on your machine and type:
